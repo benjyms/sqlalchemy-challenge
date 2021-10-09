@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# ingore config file for connecting to postgress db
+config.py
+
 # C extensions
 *.so
 
