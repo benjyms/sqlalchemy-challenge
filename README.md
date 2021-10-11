@@ -17,3 +17,4 @@ After a lot of extra data mapping, table creation and importing the following ha
 9. Data from the ORM query in #8 was saved to a pandas dataframe and ordered by date, columns were renamed and index set to the date.
 10. Plot of dates and percipitation was created using pandas and Matplotlib
 11. Sumamry Statistics of the precipitation data created and saved.
+12. Final Historgram created.
