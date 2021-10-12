@@ -33,5 +33,5 @@ Flask/JSON Activities
 6. The station route was created next with a dictionary created and the results displayed using jsonify.
 7. The precipation route was created next with a dictionary create and the results displayed using jsonify.
 8. The tobs route was create next with a dictionary cretaed and the results displayed using jsonfiy.
-9. The start date route was created leveraging numerous suggestion from other online, including using simplejosn.
-10.
+9. The start date route was created leveraging numerous suggestion from others online, including using simplejosn.
+10. The start date/end dates route was created leveraging numerous suggestion from others online, including using simplejosn.

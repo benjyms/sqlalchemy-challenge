@@ -158,32 +158,33 @@ def daily_normals(start):
 	# Return a json list of daily normals
 	return jsonify(daily_data)			
 
-# @app.route("/api/v1.0/<start>/<end>")
-# def daily_normals2(start,end):
-# 	"""Returns a json list of daily normals within a given range"""
+@app.route("/api/v1.0/<start>/<end>")
+def daily_normals2(start,end):
+	"""Returns a json list of daily normals within a given range"""
 
-# 	# Calculate the daily normals. Normals are the averages for min, avg, and max temperatures
-# 	daily_calc2 = [func.min(Measurement.tobs),\
-# 					func.avg(Measurement.tobs),\
-# 					func.max(Measurement.tobs)]
-# 	daily_query2 = session.query(Measurement.date,*daily_calc2).\
-# 				filter(func.strftime("%Y-%m-%d", Measurement.date) >= start).\
-# 				filter(func.strftime("%Y-%m-%d", Measurement.date) <= end).\
-# 				group_by(Measurement.date)
+	# Calculate the daily normals. Normals are the averages for min, avg, and max temperatures
+	daily_calc2 = [func.min(Measurement.tobs),\
+					func.avg(Measurement.tobs),\
+					func.max(Measurement.tobs)]
+	daily_query2 = session.query(Measurement.date,*daily_calc2).\
+				filter((Measurement.date) >= start).\
+				filter((Measurement.date) <= end).\
+                order_by(Measurement.date).\
+				group_by(Measurement.date)
 
-# 	# Convert query results into a json dictionary
-# 	daily_data2 = []
-# 	for daily_normals2 in daily_query2:
-# 		(t_date2, t_min2, t_avg2, t_max2) = daily_normals2
-# 		norms_dict2 = {}
-# 		norms_dict2["Date"] = t_date2
-# 		norms_dict2["Temp Min"] = t_min2
-# 		norms_dict2["Temp Avg"] = t_avg2
-# 		norms_dict2["Temp Max"] = t_max2
-# 		daily_data2.append(norms_dict2)
+	# Convert query results into a json dictionary
+	daily_data2 = []
+	for daily_normals2 in daily_query2:
+		(t_date2, t_min2, t_avg2, t_max2) = daily_normals2
+		norms_dict2 = {}
+		norms_dict2["Date"] = t_date2
+		norms_dict2["Temp Min"] = t_min2
+		norms_dict2["Temp Avg"] = t_avg2
+		norms_dict2["Temp Max"] = t_max2
+		daily_data2.append(norms_dict2)
 
-# 	# Return a json list of dialy normals
-# 	return jsonify(daily_data2)
+	# Return a json list of dialy normals
+	return jsonify(daily_data2)
 
 if __name__ == '__main__':
     app.run(debug=True)
