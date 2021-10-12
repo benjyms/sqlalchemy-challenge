@@ -21,7 +21,8 @@ After a lot of extra data mapping, table creation and importing the following ha
 13. Query to determine which station by id had the most measurements/rows.
 14. Min, Max, Avererage and total count of tempatures were identified.
 15. Final Historgram created.
-16. Session Closed.
+16. Tuned all print statements.
+17. Session Closed.
 
 Flask/JSON Activities
 
@@ -29,9 +30,10 @@ Flask/JSON Activities
 2. Database connection was created and reflected including tables.
 3. References to each table were saved.
 4. A sesion was started.
-5. The initial route was created to welcome the viewer and show all available routes.
-6. The station route was created next with a dictionary created and the results displayed using jsonify.
-7. The precipation route was created next with a dictionary create and the results displayed using jsonify.
-8. The tobs route was create next with a dictionary cretaed and the results displayed using jsonfiy.
-9. The start date route was created leveraging numerous suggestion from others online, including using simplejosn.
-10. The start date/end dates route was created leveraging numerous suggestion from others online, including using simplejosn.
+5. Provided welcome text and guidance text on how to access routes.
+6. The initial route was created to welcome the viewer and show all available routes.
+7. The station route was created next with a dictionary created and the results displayed using jsonify.
+8. The precipation route was created next with a dictionary create and the results displayed using jsonify.
+9. The tobs route was create next with a dictionary cretaed and the results displayed using jsonfiy.
+10. The start date route was created leveraging numerous suggestion from others online, including using simplejosn.
+11. The start date/end dates route was created leveraging numerous suggestion from others online, including using simplejosn.

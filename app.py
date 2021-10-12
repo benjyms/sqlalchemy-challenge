@@ -46,14 +46,23 @@ def welcome():
     """List all available api routes."""
     return (
         f"Welcome to Benjy's flask page<br/>"
+        f"Please explore some Hawaii Weather Data I have collected from a database.<br/>"
+        f"I find copy and paste in this page of the available routes works best.<br/>"
+        f"For the start & start/end routes, please play with the dates to see more or different data.<br/>"
         f"  <br/>"
         f"Available Routes:<br/>"
-        f"/api/v1.0/stations<br/>"
-        f"/api/v1.0/precipitation<br/>"
-        f"/ap/v1.0/tobs<br/>"
-        f"/api/v1.0/<start><br/>"
-        f"/api/v1.0/<start>/<end><br/>"
-        
+        f"/api/v1.0/stations<br/>Returns a JSON list of the weather stations<br/><br/>"
+        f"/api/v1.0/precipitation<br/>Returns a JSON list of precipitation data for the dates between 8/23/16 and 8/23/17<br/><br/>"
+        f"/ap/v1.0/tobs<br/>Returns a JSON list of the Temperature Observations (tobs) for each station for the dates between 8/23/16 and 8/23/17<br/><br/>"
+        f"/api/v1.0/<start>Returns a JSON list of the minimum temperature, the average temperature, and the max temperature for the dates between the given start date and 8/23/17.<br/>"
+        f" <br/>"
+        f"Example: -------> http://127.0.0.1:5000/api/v1.0/2016-08-23<br/>"
+        f" <br/>"
+        f"/api/v1.0/<start>/<end><br/>Returns a JSON list of the minimum temperature, the average temperature, and the max temperature for the dates between the given start date and end date<br/><br/>."
+        f"/api/v1.0/<start>Returns a JSON list of the minimum temperature, the average temperature, and the max temperature for the dates between the given start date and 8/23/17.<br/>"
+        f" <br/>"
+        f"Example: -------> http://127.0.0.1:5000/api/v1.0/2016-08-23/2016-08-27<br/>"
+        f" <br/>"
     )
 
 @app.route("/api/v1.0/stations")
