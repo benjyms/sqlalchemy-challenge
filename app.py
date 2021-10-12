@@ -1,5 +1,6 @@
 # importing all libraries and configs needed for creating routes to noted items
 import numpy as np
+import datetime
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -7,6 +8,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 
 from flask import Flask, jsonify
+import simplejson as json
 from sqlalchemy.sql.expression import join
 
 from config import user,password
@@ -48,7 +50,9 @@ def welcome():
         f"Available Routes:<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/precipitation<br/>"
-        f"/api/v1.0/tobs<br/>"
+        f"/ap/v1.0/tobs<br/>"
+        f"/api/v1.0/<start><br/>"
+        f"/api/v1.0/<start>/<end><br/>"
         
     )
 
@@ -124,6 +128,62 @@ def tobs():
         tobs_js.append(tobs_dict)
 
     return jsonify(tobs_js)
+
+# Flask route for daily normals with given start date
+@app.route("/api/v1.0/<start>")
+def daily_normals(start):
+	"""Returns a json list of daily normals when given a start date"""
+
+	# Calculate the daily normals. Normals are the averages for min, avg, and max temperatures.
+	daily_calc = [func.min(Measurement.tobs),\
+					func.avg(Measurement.tobs),\
+					func.max(Measurement.tobs)]
+	daily_query = session.query(Measurement.date,*daily_calc).\
+                filter((Measurement.date) >= start).\
+                order_by(Measurement.date).\
+				group_by(Measurement.date)
+
+
+	# Convert query results into a dictionary
+	daily_data = []
+	for daily_normals in daily_query:
+		(t_date, t_min, t_avg, t_max) = daily_normals
+		norms_dict = {}
+		norms_dict["Date"] = t_date
+		norms_dict["Temp Min"] = t_min
+		norms_dict["Temp Avg"] = t_avg
+		norms_dict["Temp Max"] = t_max
+		daily_data.append(norms_dict)
+
+	# Return a json list of daily normals
+	return jsonify(daily_data)			
+
+# @app.route("/api/v1.0/<start>/<end>")
+# def daily_normals2(start,end):
+# 	"""Returns a json list of daily normals within a given range"""
+
+# 	# Calculate the daily normals. Normals are the averages for min, avg, and max temperatures
+# 	daily_calc2 = [func.min(Measurement.tobs),\
+# 					func.avg(Measurement.tobs),\
+# 					func.max(Measurement.tobs)]
+# 	daily_query2 = session.query(Measurement.date,*daily_calc2).\
+# 				filter(func.strftime("%Y-%m-%d", Measurement.date) >= start).\
+# 				filter(func.strftime("%Y-%m-%d", Measurement.date) <= end).\
+# 				group_by(Measurement.date)
+
+# 	# Convert query results into a json dictionary
+# 	daily_data2 = []
+# 	for daily_normals2 in daily_query2:
+# 		(t_date2, t_min2, t_avg2, t_max2) = daily_normals2
+# 		norms_dict2 = {}
+# 		norms_dict2["Date"] = t_date2
+# 		norms_dict2["Temp Min"] = t_min2
+# 		norms_dict2["Temp Avg"] = t_avg2
+# 		norms_dict2["Temp Max"] = t_max2
+# 		daily_data2.append(norms_dict2)
+
+# 	# Return a json list of dialy normals
+# 	return jsonify(daily_data2)
 
 if __name__ == '__main__':
     app.run(debug=True)
